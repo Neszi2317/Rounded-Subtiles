@@ -1,20 +1,17 @@
-group = "app.template"
+group = "patches.youtube.captions"
 
 patches {
-    // TODO: Update this section with your project details.
     about {
-        name = "UserXYZ Patches"
-        description = "Patches for apps I like"
-        source = "git@github.com:UserXYZ/morphe-patches.git"
-        author = "Awesome dev"
-        contact = "na"
-        website = "na"
+        name = "Rounded Captions"
+        description = "Experimental rounded caption background renderer for YouTube 21.42.241"
+        source = "https://github.com/Neszi2317/Rounded-Subtiles"
+        author = "Neszi2317"
+        contact = "https://github.com/Neszi2317/Rounded-Subtiles/issues"
+        website = "https://github.com/Neszi2317/Rounded-Subtiles"
         license = "GPLv3"
     }
 }
 
-// Separate configuration so gson is available at runtime for the
-// generatePatchesList task but never bundled into the APK.
 val patchListGeneratorClasspath = configurations.create("patchListGeneratorClasspath")
 
 dependencies {
@@ -25,14 +22,10 @@ dependencies {
 tasks {
     register<JavaExec>("generatePatchesList") {
         description = "Build patch with patch list"
-
         dependsOn(build)
-
         classpath = sourceSets["main"].runtimeClasspath + patchListGeneratorClasspath
         mainClass.set("util.PatchListGeneratorKt")
     }
-
-    // Used by gradle-semantic-release-plugin.
     publish {
         dependsOn("generatePatchesList")
     }
