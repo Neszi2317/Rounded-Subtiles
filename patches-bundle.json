@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-10-20T11:43:30",
-  "description": "## 1.0.0-dev.1 (2026-10-20)\n\n### ✨ New Features\n\n* add experimental rounded YouTube subtitle backgrounds ([3e3ea9d](https://github.com/Neszi2317/Rounded-Subtiles/commit/3e3ea9d4d5b07a6969a7e8d3a6d7fdc3ebaf94bd))",
-  "download_url": "https://github.com/Neszi2317/Rounded-Subtiles/releases/download/v1.0.0-dev.1/patches-1.0.0-dev.1.mpp",
+  "created_at": "2026-10-20T11:56:12",
+  "description": "## [1.0.0-dev.2](https://github.com/Neszi2317/Rounded-Subtiles/compare/v1.0.0-dev.1...v1.0.0-dev.2) (2026-10-20)\n\n### 🐛 Bug Fixes\n\n* center text within rounded YouTube captions ([cec31f4](https://github.com/Neszi2317/Rounded-Subtiles/commit/cec31f469151c1c90a09fa436a321d3588e69a43))",
+  "download_url": "https://github.com/Neszi2317/Rounded-Subtiles/releases/download/v1.0.0-dev.2/patches-1.0.0-dev.2.mpp",
   "signature_download_url": "",
-  "version": "1.0.0-dev.1"
+  "version": "1.0.0-dev.2"
 }

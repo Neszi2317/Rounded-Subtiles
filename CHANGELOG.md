@@ -1,3 +1,9 @@
+## [1.0.0-dev.2](https://github.com/Neszi2317/Rounded-Subtiles/compare/v1.0.0-dev.1...v1.0.0-dev.2) (2026-10-20)
+
+### 🐛 Bug Fixes
+
+* center text within rounded YouTube captions ([cec31f4](https://github.com/Neszi2317/Rounded-Subtiles/commit/cec31f469151c1c90a09fa436a321d3588e69a43))
+
 ## 1.0.0-dev.1 (2026-10-20)
 
 ### ✨ New Features
