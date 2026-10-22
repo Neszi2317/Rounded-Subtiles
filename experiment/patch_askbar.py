@@ -36,7 +36,7 @@ a=change(a,'''                pendingWelcomeToken = panel.welcomeToken;
                 pendingSuggestionSelectionId = panel.summarizeSelectionId;''','''                pendingWelcomeToken = autoSummarize ? panel.welcomeToken : null;
                 pendingSummarizeToken = autoSummarize ? panel.summarizeToken : null;
                 pendingSuggestionSelectionId = autoSummarize ? panel.summarizeSelectionId : -1;''','summarize state')
-v=change(v,'            videoId = newlyLoadedVideoId;\n','            videoId = newlyLoadedVideoId;\n            app.morphe.extension.youtube.patches.ask.AskActionBarButton.onVideoChanged();\n','video callback')
+v=change(v,'            playerVideo.videoId = newlyLoadedVideoId;\n','            playerVideo.videoId = newlyLoadedVideoId;\n            app.morphe.extension.youtube.patches.ask.AskActionBarButton.onVideoChanged();\n','video callback')
 k=change(k,'import app.morphe.patches.youtube.misc.settings.settingsPatch\n','import app.morphe.patches.youtube.misc.settings.settingsPatch\nimport app.morphe.patches.youtube.video.information.videoInformationPatch\n','Kotlin import')
 k=change(k,'        versionCheckPatch,\n        authHookPatch','        versionCheckPatch,\n        videoInformationPatch,\n        authHookPatch','Kotlin dependency')
 
