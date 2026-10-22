@@ -30,6 +30,8 @@ jobs:
           git -C upstream checkout --detach FETCH_HEAD
       - name: Integrate under-video Ask button
         run: python3 experiment/patch_askbar.py upstream
+      - name: Hide 110 unrelated public patches
+        run: python3 experiment/keep_only_ask.py upstream
       - name: Build real Morphe patch bundle
         working-directory: upstream
         env:
@@ -53,6 +55,6 @@ jobs:
       - name: Upload experimental MPP
         uses: actions/upload-artifact@v4
         with:
-          name: ask-actionbar-experimental
+          name: ask-actionbar-only-experimental
           path: upstream/patches/build/libs/*.mpp
           if-no-files-found: error
