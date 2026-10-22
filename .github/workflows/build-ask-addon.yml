@@ -1,0 +1,48 @@
+name: Build isolated Ask add-on
+on:
+  push:
+    branches:
+      - experiment/ask-addon-20261022
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  build-addon:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Hide unrelated patch entries
+        run: python3 experiment/only_ask_addon.py
+      - name: Compile genuine single-patch .mpp
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: ./gradlew :patches:buildAndroid --no-daemon --stacktrace
+      - name: Verify archive and helper
+        run: |
+          python3 - <<'PY'
+          import glob, zipfile
+          paths = glob.glob("patches/build/libs/*.mpp")
+          assert len(paths) == 1, paths
+          with zipfile.ZipFile(paths[0]) as z:
+              names = z.namelist()
+              assert "classes.dex" in names
+              assert "META-INF/MANIFEST.MF" in names
+              assert any(n.endswith("AskActionBarAddonPatchKt.class") for n in names)
+              print("Valid single Ask add-on:", paths[0])
+          PY
+      - name: Export compiled MPP
+        uses: actions/upload-artifact@v4
+        with:
+          name: ask-addon-without-duplicate-branding
+          path: patches/build/libs/*.mpp
+          if-no-files-found: error
