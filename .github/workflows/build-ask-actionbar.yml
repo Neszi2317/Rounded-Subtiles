@@ -1,0 +1,58 @@
+name: Build Ask ActionBar Experiment
+
+on:
+  push:
+    branches:
+      - experiment/ask-actionbar-20261022
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout custom script
+        uses: actions/checkout@v4
+      - name: Install Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Checkout Morphe patch from PR 3897
+        shell: bash
+        run: |
+          git clone --depth 1 https://github.com/MorpheApp/morphe-patches.git upstream
+          git -C upstream fetch --depth 1 origin pull/3897/head
+          git -C upstream checkout --detach FETCH_HEAD
+      - name: Integrate under-video Ask button
+        run: python3 experiment/patch_askbar.py upstream
+      - name: Build real Morphe patch bundle
+        working-directory: upstream
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          chmod +x gradlew
+          ./gradlew :patches:buildAndroid --no-daemon --stacktrace
+      - name: Validate archive
+        run: |
+          ls -lh upstream/patches/build/libs/*.mpp
+          python3 - <<'PY'
+          import zipfile,glob
+          files=glob.glob('upstream/patches/build/libs/*.mpp')
+          assert files, "No .mpp files built"
+          for path in files:
+              with zipfile.ZipFile(path) as z:
+                  names=set(z.namelist())
+                  assert 'classes.dex' in names and 'META-INF/MANIFEST.MF' in names, names
+                  print("Validated Morphe MPP:",path)
+          PY
+      - name: Upload experimental MPP
+        uses: actions/upload-artifact@v4
+        with:
+          name: ask-actionbar-experimental
+          path: upstream/patches/build/libs/*.mpp
+          if-no-files-found: error
