@@ -15,9 +15,9 @@ Click here to add these patches to Morphe: https://morphe.software/add-source?gi
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.0.0-dev.3](https://github.com/Neszi2317/Rounded-Subtiles/releases/tag/v1.0.0-dev.3)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;2 patches total
+> **[v1.0.0-dev.4](https://github.com/Neszi2317/Rounded-Subtiles/releases/tag/v1.0.0-dev.4)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;3 patches total
 <details open>
-<summary>📦 YouTube&nbsp;&nbsp;•&nbsp;&nbsp;2 patches</summary>
+<summary>📦 YouTube&nbsp;&nbsp;•&nbsp;&nbsp;3 patches</summary>
 <br>
 
 **🎯 Supported versions:**
@@ -29,6 +29,7 @@ Click here to add these patches to Morphe: https://morphe.software/add-source?gi
 |----------|----------------|-----------|
 | [Rounded YouTube Captions (21.20.405)](#rounded-youtube-captions-21-20-405) | Experimental: force rounded caption backgrounds and center caption text on YouTube 21.20.405. |  |
 | [Rounded YouTube Captions (21.42.241)](#rounded-youtube-captions-21-42-241) | Experimental: rounded subtitle backgrounds with centered text. |  |
+| [Rounded YouTube Captions (21.44.528)](#rounded-youtube-captions-21-44-528) | Experimental: rounded subtitle backgrounds with centered text. |  |
 
 </details>
 
