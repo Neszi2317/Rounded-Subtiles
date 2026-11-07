@@ -1,0 +1,59 @@
+name: Build and publish Rounded Captions v1.0.0-dev.4
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [dev]
+    paths:
+      - '.github/workflows/build-rounded-captions-2144528.yml'
+
+permissions:
+  contents: write
+  packages: read
+
+jobs:
+  build:
+    name: Compile and attach MPP
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Compile
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: ./gradlew :patches:buildAndroid --no-daemon
+      - name: Check compiled MPP
+        shell: bash
+        run: |
+          set -euo pipefail
+          FILE=patches/build/libs/patches-1.0.0-dev.4.mpp
+          test -s "$FILE"
+          unzip -t "$FILE"
+      - name: Keep build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: rounded-captions-v1.0.0-dev.4-mpp
+          path: patches/build/libs/patches-1.0.0-dev.4.mpp
+          if-no-files-found: error
+      - name: Publish compiled MPP to existing version tag
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          FILE=patches/build/libs/patches-1.0.0-dev.4.mpp
+          TAG=v1.0.0-dev.4
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$FILE" --clobber
+          else
+            gh release create "$TAG" "$FILE" --prerelease --verify-tag \
+              --title "$TAG" \
+              --notes "Rounded YouTube Captions for 21.20.405, 21.42.241 and 21.44.528. Experimental; 21.44.528 verified against uploaded DEX but requires on-device testing."
+          fi
