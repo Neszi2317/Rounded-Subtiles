@@ -1,0 +1,73 @@
+name: Build Rounded Captions 21.45.82
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [dev]
+    paths:
+      - '.github/workflows/build-rounded-captions-214582.yml'
+
+permissions:
+  contents: write
+  packages: read
+
+jobs:
+  build:
+    name: Compile and publish MPP
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout full source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Set independent version
+        run: |
+          set -euo pipefail
+          sed -i -E 's/^version[[:space:]]*=.*/version = 1.0.0-dev.5/' gradle.properties
+          grep '^version = 1.0.0-dev.5$' gradle.properties
+
+      - name: Compile Morphe patch bundle
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: ./gradlew :patches:buildAndroid --no-daemon
+
+      - name: Validate compiled MPP contents
+        shell: bash
+        run: |
+          set -euo pipefail
+          FILE="patches/build/libs/patches-1.0.0-dev.5.mpp"
+          test -s "$FILE"
+          unzip -t "$FILE"
+          unzip -l "$FILE" | grep -F 'RoundedCaptionsPatchKt.class'
+
+      - name: Keep independent build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: rounded-captions-youtube-21.45.82-dev5
+          path: patches/build/libs/patches-1.0.0-dev.5.mpp
+          if-no-files-found: error
+
+      - name: Publish non-destructive prerelease
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG="v1.0.0-dev.5"
+          FILE="patches/build/libs/patches-1.0.0-dev.5.mpp"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "::error::Tag $TAG already exists. Refusing to overwrite any existing MPP."
+            exit 1
+          fi
+          gh release create "$TAG" "$FILE" \
+            --target "$GITHUB_SHA" \
+            --prerelease \
+            --title "Rounded Captions v1.0.0-dev.5 (YouTube 21.45.82)" \
+            --notes "Adds support for YouTube 21.45.82 (com.google.android.youtube), with rounded and horizontally centered captions. DEX class, method and instruction signatures verified against the original 21.45.82 APK. Compiled using Morphe; on-device testing with other patch bundles is still required. Older 21.20.405 and 21.44.528 patches remain in the same bundle."
