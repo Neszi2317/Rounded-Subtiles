@@ -17,16 +17,16 @@ import com.android.tools.smali.dexlib2.iface.instruction.TwoRegisterInstruction
 import com.android.tools.smali.dexlib2.iface.reference.FieldReference
 
 /**
- * Experimental for YouTube 21.42.241. Keep the curved background and
+ * Verified bytecode targets in YouTube 21.45.82. Keep the curved background and
  * center text in it when the caption renderer would force ALIGN_NORMAL.
  */
 private object RoundedBackgroundFingerprint : Fingerprint(
-    definingClass = "Laspw;",
+    definingClass = "Latbf;",
     name = "onLayout",
     returnType = "V",
     parameters = listOf("Z", "I", "I", "I", "I"),
     filters = listOf(
-        fieldAccess(smali = "Laspw;->b:Z"),
+        fieldAccess(smali = "Latbf;->b:Z"),
         methodCall(definingClass = "Landroid/graphics/Path;", name = "addRoundRect"),
     ),
 )
@@ -42,14 +42,14 @@ private object CenteredCaptionFingerprint : Fingerprint(
     returnType = "V",
     parameters = listOf("I", "I"),
     filters = listOf(
-        fieldAccess(smali = "Laspw;->a:Landroid/text/Layout\$Alignment;"),
-        fieldAccess(smali = "Laspw;->a:Landroid/text/Layout\$Alignment;"),
+        fieldAccess(smali = "Latbf;->a:Landroid/text/Layout\$Alignment;"),
+        fieldAccess(smali = "Latbf;->a:Landroid/text/Layout\$Alignment;"),
     ),
 )
 
 @Suppress("unused")
 val forceRoundedCaptionsPatch = bytecodePatch(
-    name = "Rounded YouTube Captions (21.42.241)",
+    name = "Rounded YouTube Captions (21.45.82)",
     description = "Experimental: rounded subtitle backgrounds with centered text.",
     default = true,
 ) {
@@ -59,7 +59,7 @@ val forceRoundedCaptionsPatch = bytecodePatch(
             packageName = "com.google.android.youtube",
             apkFileType = ApkFileType.APK,
             appIconColor = 0xFF0033,
-            targets = listOf(AppTarget(version = "21.42.241", isExperimental = true)),
+            targets = listOf(AppTarget(version = "21.45.82", isExperimental = true)),
         )
     )
 
