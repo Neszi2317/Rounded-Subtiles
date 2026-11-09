@@ -28,8 +28,8 @@ Click here to add these patches to Morphe: https://morphe.software/add-source?gi
 | 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
 |----------|----------------|-----------|
 | [Rounded YouTube Captions (21.20.405)](#rounded-youtube-captions-21-20-405) | Experimental: force rounded caption backgrounds and center caption text on YouTube 21.20.405. |  |
-| [Rounded YouTube Captions (21.42.241)](#rounded-youtube-captions-21-42-241) | Experimental: rounded subtitle backgrounds with centered text. |  |
 | [Rounded YouTube Captions (21.44.528)](#rounded-youtube-captions-21-44-528) | Experimental: rounded subtitle backgrounds with centered text. |  |
+| [Rounded YouTube Captions (21.45.82)](#rounded-youtube-captions-21-45-82) | Experimental: rounded subtitle backgrounds with centered text. |  |
 
 </details>
 

@@ -29,32 +29,6 @@
       "options": []
     },
     {
-      "name": "Rounded YouTube Captions (21.42.241)",
-      "description": "Experimental: rounded subtitle backgrounds with centered text.",
-      "default": true,
-      "category": null,
-      "compatiblePackages": [
-        {
-          "packageName": "com.google.android.youtube",
-          "name": "YouTube",
-          "description": null,
-          "apkFileType": "APK",
-          "appIconColor": "#FF0033",
-          "signatures": null,
-          "targets": [
-            {
-              "version": "21.42.241",
-              "versionCodes": null,
-              "isExperimental": true,
-              "minSdk": null,
-              "description": null
-            }
-          ]
-        }
-      ],
-      "options": []
-    },
-    {
       "name": "Rounded YouTube Captions (21.44.528)",
       "description": "Experimental: rounded subtitle backgrounds with centered text.",
       "default": true,
@@ -70,6 +44,32 @@
           "targets": [
             {
               "version": "21.44.528",
+              "versionCodes": null,
+              "isExperimental": true,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Rounded YouTube Captions (21.45.82)",
+      "description": "Experimental: rounded subtitle backgrounds with centered text.",
+      "default": true,
+      "category": null,
+      "compatiblePackages": [
+        {
+          "packageName": "com.google.android.youtube",
+          "name": "YouTube",
+          "description": null,
+          "apkFileType": "APK",
+          "appIconColor": "#FF0033",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "21.45.82",
               "versionCodes": null,
               "isExperimental": true,
               "minSdk": null,

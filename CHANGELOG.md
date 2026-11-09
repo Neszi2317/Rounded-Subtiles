@@ -1,3 +1,13 @@
+## [1.0.0-dev.4](https://github.com/Neszi2317/Rounded-Subtiles/compare/v1.0.0-dev.3...v1.0.0-dev.4) (2026-11-09)
+
+### 🐛 Bug Fixes
+
+* adapt rounded and centered captions to YouTube 21.45.82 ([13e5e4f](https://github.com/Neszi2317/Rounded-Subtiles/commit/13e5e4f0a7a93f12d78b1da7a3a68f90f3b55a09))
+
+### ✨ New Features
+
+* support YouTube 21.44.528 rounded centered captions ([1b18a58](https://github.com/Neszi2317/Rounded-Subtiles/commit/1b18a581c8f9eedfa51942e355d0f1ce1c89160a))
+
 ## [1.0.0-dev.4](https://github.com/Neszi2317/Rounded-Subtiles/compare/v1.0.0-dev.3...v1.0.0-dev.4) (2026-11-07)
 
 ### ✨ New Features
