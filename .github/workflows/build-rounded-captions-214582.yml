@@ -1,4 +1,4 @@
-name: Build Rounded Captions 21.45.82
+name: Build Rounded Captions 21.46.522
 
 on:
   workflow_dispatch:
@@ -30,8 +30,8 @@ jobs:
       - name: Set independent version
         run: |
           set -euo pipefail
-          sed -i -E 's/^version[[:space:]]*=.*/version = 1.0.0-dev.5/' gradle.properties
-          grep '^version = 1.0.0-dev.5$' gradle.properties
+          sed -i -E 's/^version[[:space:]]*=.*/version = 1.0.0-dev.6/' gradle.properties
+          grep '^version = 1.0.0-dev.6$' gradle.properties
 
       - name: Compile Morphe patch bundle
         env:
@@ -42,16 +42,16 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          FILE="patches/build/libs/patches-1.0.0-dev.5.mpp"
+          FILE="patches/build/libs/patches-1.0.0-dev.6.mpp"
           test -s "$FILE"
           unzip -t "$FILE"
-          unzip -l "$FILE" | grep -F 'RoundedCaptionsPatchKt.class'
+          unzip -l "$FILE" | grep -F 'RoundedCaptions2146522PatchKt.class'
 
       - name: Keep independent build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: rounded-captions-youtube-21.45.82-dev5
-          path: patches/build/libs/patches-1.0.0-dev.5.mpp
+          name: rounded-captions-youtube-21.46.522-dev6
+          path: patches/build/libs/patches-1.0.0-dev.6.mpp
           if-no-files-found: error
 
       - name: Publish non-destructive prerelease
@@ -60,8 +60,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          TAG="v1.0.0-dev.5"
-          FILE="patches/build/libs/patches-1.0.0-dev.5.mpp"
+          TAG="v1.0.0-dev.6"
+          FILE="patches/build/libs/patches-1.0.0-dev.6.mpp"
           if gh release view "$TAG" >/dev/null 2>&1; then
             echo "::error::Tag $TAG already exists. Refusing to overwrite any existing MPP."
             exit 1
@@ -69,5 +69,5 @@ jobs:
           gh release create "$TAG" "$FILE" \
             --target "$GITHUB_SHA" \
             --prerelease \
-            --title "Rounded Captions v1.0.0-dev.5 (YouTube 21.45.82)" \
-            --notes "Adds support for YouTube 21.45.82 (com.google.android.youtube), with rounded and horizontally centered captions. DEX class, method and instruction signatures verified against the original 21.45.82 APK. Compiled using Morphe; on-device testing with other patch bundles is still required. Older 21.20.405 and 21.44.528 patches remain in the same bundle."
+            --title "Rounded Captions v1.0.0-dev.6 (YouTube 21.46.522)" \
+            --notes "Adds support for YouTube 21.46.522 (com.google.android.youtube), with rounded and horizontally centered captions. DEX class, method and instruction signatures verified against the original 21.46.522 APK. Compiled using Morphe; on-device testing with other patch bundles is still required. Older YouTube variants remain included in the bundle."
